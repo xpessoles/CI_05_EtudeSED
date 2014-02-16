@@ -1,114 +1,68 @@
-\documentclass[11pt,oneside]{article}
-\input{coursHeadings}
-\usepackage[raccourcis]{FAST}
+\documentclass[10pt]{article}
+\input{style/coursHeadings}
+\input{style/programHeadings}
+\input{style/macros_SII}
+\input{style/macros_Titres}
+\input{style/macros_Frames}
+
+%Si le boolen xp est vrai : compilation pour xabi
+%Sinon compilation Damien
+\newboolean{xp}
+\setboolean{xp}{true}
+
+\newboolean{prof}
+\setboolean{prof}{true}
+
 \usepackage[%
-    pdftitle={Systèmes à événements discrets},
+    pdftitle={CI5 SED - },
     pdfauthor={Xavier Pessoles},
     colorlinks=true,
     linkcolor=blue,
     citecolor=magenta]{hyperref}
-\usepackage{schemabloc}
 
 
+\def\discipline{Sciences Industrielles de l'Ingénieur}
+\def\xxtitre{\ifthenelse{\boolean{xp}}{
+CI 5 : Étude du comportement des systèmes numériques}{
+Chapitre  -- }}
 
-% \makeatletter \let\ps@plain\ps@empty \makeatother
-%% DEBUT DU DOCUMENT
-%% =================
-\sloppy
-\hyphenpenalty 10000
+\def\xxsoustitre{\ifthenelse{\boolean{xp}}{
+Chapitre 1 -- Étude des systèmes combinatoires}{
+Partie  -- }}
 
-\newcommand{\Pointilles}[1][3]{%
-\multido{}{#1}{\makebox[\linewidth]{\dotfill}\\[\parskip]
+\def\xxauteur{\ifthenelse{\boolean{xp}}{
+Xavier \textsc{Pessoles}}{
 }}
 
+\def\xxpied{\ifthenelse{\boolean{xp}}{
+CI 5 : Étude du comportement des systèmes numériques -- Cours\\
+Chapitre 1 -- Étude des systèmes combinatoires}{
+\xxtitre}}
 
-\colorlet{shadecolor}{orange!15}
+\def\xxcathegorie{\ifthenelse{\boolean{xp}}{
+2013 -- 2014 \\
+Xavier \textsc{Pessoles}}{}}
 
-\newtheorem{theorem}{Theorem}
+
+
+
+
+%---------------------------------------------------------------------------
 
 
 \begin{document}
 
+\ifthenelse{\boolean{xp}}{\input{style/enteteXP}}{\input{style/enteteDI}}
 
-\newboolean{prof}
-\setboolean{prof}{true}
-%------------- En tetes et Pieds de Pages ------------
-\pagestyle{fancy}
-\renewcommand{\headrulewidth}{0pt}
-
-\fancyhead{}
-\fancyhead[L]{%
-\noindent\noindent\begin{minipage}[c]{2.6cm}
-%Lycée Rouvière PTSI
-\includegraphics[width=2cm]{png/logo_ptsi.png}%
-\end{minipage}
-}
-
-\fancyhead[C]{\rule{12cm}{.5pt}}
-
-\fancyhead[R]{%
-\noindent\begin{minipage}[c]{3cm}
-\begin{flushright}
-\footnotesize{\textit{\textsf{Sciences Industrielles\\ de l'Ingénieur}}}%
-\end{flushright}
-\end{minipage}
-}
-
-\renewcommand{\footrulewidth}{0.2pt}
-
-\fancyfoot[C]{\footnotesize{\bfseries \thepage}}
-\fancyfoot[L]{\footnotesize{2012 -- 2013} \\ X. \textsc{Pessoles}}
-\ifthenelse{\boolean{prof}}{%
-\fancyfoot[R]{\footnotesize{Cours -- CI 8 : SED -- P}}
-}{%
-\fancyfoot[R]{\footnotesize{Cours -- CI 8 : SED}}
-}
-
-
-
-\begin{center}
- \huge\textsc{CI 8 -- SED -- Systèmes à événements discrets}
-
- \large\textsc{Commande et comportement des systèmes combinatoires et séquentiels}
-\end{center}
-
-\begin{center}
- \LARGE\textsc{Chapitre 1 -- Étude des systèmes combinatoires}
-\end{center}
-
-
-\vspace{.5cm}
-\begin{flushright}
-\textit{D'après ressources de David Violeau et Florestan Mathurin.}
-\end{flushright}
-%\begin{center}
-%\begin{tabular}{cccc}
-%\includegraphics[height=2.5cm]{png/acier} &
-%\includegraphics[height=2.5cm]{png/bois} &
-%\includegraphics[height=2.5cm]{png/composite} &
-%\includegraphics[height=2.5cm]{png/verre}\\
-%\textit{Acier \cite{acier}} & 
-%\textit{Bois} & 
-%\textit{Fibre de carbone \cite{composite}} & 
-%\textit{Verre \cite{verre}} \\
-%\end{tabular}
-%\end{center}
 
 
 
 Un des objectifs de l'automaticien est de concevoir la partie commande qui traite les informations et élabore les ordres. Ce cours étudie le cas où les informations et les ordres élaborés sont des variables binaires.
-\begin{prob}
-\textsc{Problématique :}
-
-%En phase d'avant conception d'un produit, quels sont les critères qui vont permettre de choisir les matériaux à utiliser ?
-\end{prob}
 
 \begin{savoir}
 \textsc{Savoirs :}
 \begin{itemize}
-\item Exprimer le fonctionnement d'un système combinatoire sous forme d'équations logiques
-\item Optimiser la représentation logique du système
-\item Décrire, au moyen d'une représentation adaptée, le comportement du système
+\item \textbf{Mod - C5.1 :} Modélisation des systèmes à événements discrets (fonctions logiques, tables de vérité).
 \end{itemize}
 \end{savoir}
 
@@ -183,7 +137,7 @@ Inconvénient : Cette représentation adaptée à la représentation binaire des
 \end{minipage} \hfill
 \begin{minipage}[c]{.25\linewidth}
 \begin{center}
-\includegraphics[width=.8\textwidth]{png/fig_03}
+\includegraphics[width=.8\textwidth]{images/fig_03}
 \end{center}
 \end{minipage}
 
@@ -202,8 +156,8 @@ Avantage : il apporte une garantie d'interprétation avec une erreur maximale d'
 
 \begin{center}
 \begin{tabular}{cc}
-\includegraphics[height=4cm]{png/DisqueGray} &
-\includegraphics[height=3.5cm]{png/CodeurGray} \\
+\includegraphics[height=4cm]{images/DisqueGray} &
+\includegraphics[height=3.5cm]{images/CodeurGray} \\
 \textit{Disque codage Gray} & 
 \textit{Disque codage Gray} \\
 \end{tabular}
@@ -249,14 +203,22 @@ Décimal & \multicolumn{4}{c|}{Binaire pur} &\multicolumn{4}{c|}{Binaire réflé
 \subsubsection{Le codeur incrémental}
 \begin{minipage}[c]{.75\linewidth}
 Un codeur incrémental est constitué d'un disque généralement muni de deux pistes ainsi que de trois couples de DEL -- récepteurs. Une des deux pistes est percée d'une seule fente. Le détecteur noté $Z$ permet de détecter le passage de cette fente. La seconde piste est composée de $n$ fentes. Les deux autres DEL ($A$ et $B$) détectent le passage des fentes sur cette piste. 
+
+Dans certains cas, les impulsions peuvent être mesurées par des capteurs à effets Hall. 
+
+Ces codeurs permettent de réaliser une mesure incrémentale. Il faut donc fixer une référence (POM -- Prise d'Origine Machine) pour connaitre la position absolue.
+
+Ces codeurs sont utilisés pour mesurer les déplacements des axes sur les machines outils. On en retrouve aussi sur l'axe asservi Emericc ou encore sur le Tribar.
 \end{minipage}\hfill
 \begin{minipage}[c]{.2\linewidth}
 \begin{center}
-\includegraphics[width=.95\textwidth]{png/DisqueIncremental}
+\includegraphics[width=.95\textwidth]{images/CodeurIncremental}
 \end{center}
 \end{minipage}
 
 \begin{exemple}
+\begin{minipage}[c]{.75\linewidth}
+
 La résolution d'un codeur incrémental peut varier de 1 000 à 25 000 impulsions par tour pour des fréquences de rotation allant jusqu'à 10 000 tr/min.
 \begin{enumerate}
 \item Donner la résolution en degrés du codeur. 
@@ -264,14 +226,21 @@ La résolution d'un codeur incrémental peut varier de 1 000 à 25 000 impulsion
 \item Réaliser le chronogramme des sorties des voies $A$ et $B$ en faisant l'hypothèse que les DEL $A$ et $B$ sont <<décalées>> d'un quart de période.
 \item Expliquer en quoi l'existence des deux LED permet de détecter le sens de rotation du disque. 
 \end{enumerate}
+\end{minipage}\hfill
+\begin{minipage}[c]{.2\linewidth}
+\begin{center}
+\includegraphics[width=.95\textwidth]{images/DisqueIncremental}
+\end{center}
+\end{minipage}
+
 \begin{minipage}[c]{.45\linewidth}
 \begin{center}
-\includegraphics[width=\textwidth]{png/ChronogrammeIncremental}
+\includegraphics[width=\textwidth]{images/ChronogrammeIncremental}
 \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c]{.45\linewidth}
 \begin{center}
-\includegraphics[width=\textwidth]{png/ChronogrammeIncremental}
+\includegraphics[width=\textwidth]{images/ChronogrammeIncremental}
 \end{center}
 \end{minipage}
 \end{exemple}
@@ -280,18 +249,46 @@ La résolution d'un codeur incrémental peut varier de 1 000 à 25 000 impulsion
 
 \subsubsection{Le codeur absolu}
 
-\section{Systèmes combinatoires}
+Un codeur absolu permet de déterminer la position angulaire réel d'un système. Il est constitué de $N$ pistes avec des fentes qui sont agencées selon le codage Gray. Une <<rampe>> de $N$ couples de DEL -- récepteurs permettent de détecter, à un instant donné une combinaison de bits correspondant à la position du disque. 
 
 \begin{exemple}
-Support : éclairage d'un escalier
+\begin{enumerate}
+\item Combien de pistes faut-il pour coder $360 \textdegree$ avec une précision de $0,1 \textdegree$. 
+\item Combien faudrait-il de fentes avec codeur incrémental ? 
+\item Pour un codeur avec 3 pistes, teinter les différentes zones dans le cas d'un codage Gray puis dans le cas d'un codeur naturel.
+\item Conclure sur l'intérêt du code Gray lorsque les DEL sont décalées. 
+\end{enumerate}
 
-On souhaite éclairer un escalier par 4 lampes qui s'allument automatiquement lorsque l'on monte ou descend l'escalier. Pour l'esthétisme, on désire que les lampes s'allument puis s'éteignent successivement lorsqu'une présence est détectée. On utilise 3 détecteurs de présence notés $a$, $b$, et $c$. L'objectif est de déterminer les équations logiques liant l'état des lampes à l'état des détecteurs de présence. Chaque capteur détecte une présence. Chaque capteur détecte une présence dans la zone indiquée. Il faut toujours 2 lampes allumées sauf aux marches extrêmes. 
+\begin{minipage}[c]{.45\linewidth}
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/DisqueAbsolu}
+
+\textit{Codage binaire naturel}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.45\linewidth}
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/DisqueAbsolu}
+
+\textit{Codage binaire réfléchi}
+\end{center}
+\end{minipage}
+
+
 \end{exemple}
 
-
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/fig_06}
-\end{center}
+\section{Systèmes combinatoires}
+%
+%\begin{exemple}
+%Support : éclairage d'un escalier
+%
+%On souhaite éclairer un escalier par 4 lampes qui s'allument automatiquement lorsque l'on monte ou descend l'escalier. Pour l'esthétisme, on désire que les lampes s'allument puis s'éteignent successivement lorsqu'une présence est détectée. On utilise 3 détecteurs de présence notés $a$, $b$, et $c$. L'objectif est de déterminer les équations logiques liant l'état des lampes à l'état des détecteurs de présence. Chaque capteur détecte une présence. Chaque capteur détecte une présence dans la zone indiquée. Il faut toujours 2 lampes allumées sauf aux marches extrêmes. 
+%\end{exemple}
+%
+%
+%\begin{center}
+%\includegraphics[width=.9\textwidth]{images/fig_06}
+%\end{center}
 
 
 \subsection{Définitions}
@@ -306,19 +303,24 @@ Une variable $a$ est binaire si et seulement si elle peut prendre, à chaque ins
 \end{defi}
 
 \begin{exemple}
-\textit{Lister les variables binaires pour l'éclairage de l'escalier}
+\textit{Lister les variables binaires pour un codeur incrémental avec une résolution de 0,1 degrés et pour un codeur absolu de même résolution.}
 \end{exemple}
 
+
 \begin{rem}
+\begin{minipage}[c]{.6\linewidth}
 Le comportement tout ou rien (TOR) ne correspond qu'au comportement normalement prévu en régime stabilisé et en l'absence de tout dysfonctionnement. 
 
 L'association d'une variable binaire à un composant ne peut pas rendre compte des états transitoires apparaissent entre deux états stables. C'est donc une simplification du comportement réel.
+\end{minipage}\hfill
+\begin{minipage}[c]{.35\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/fig_07_2}
+\end{center}
+\end{minipage}
 \end{rem}
 
 
-\begin{center}
-\includegraphics[width=.8\textwidth]{png/fig_07}
-\end{center}
 
 \subsubsection{Système binaire}
 
@@ -332,7 +334,7 @@ Un système logique combinatoire est un système binaire pour lequel à un état
 \end{defi}
 
 \begin{center}
-\includegraphics[width=.6\textwidth]{png/fig_08}
+\includegraphics[width=.6\textwidth]{images/fig_08}
 \end{center}
 
 \begin{defi}
@@ -341,7 +343,7 @@ Un système logique est dit séquentiel si les sorties $S_j$ ne dépendent pas u
 
 \begin{exemple}
 \begin{center}
-\includegraphics[width=.9\textwidth]{png/fig_09}
+\includegraphics[width=.9\textwidth]{images/fig_09}
 \end{center}
 
 \end{exemple}
@@ -368,27 +370,9 @@ Une algèbre binaire est une algèbre de Boole dont les éléments $B$ ne peuven
 \begin{exemple}
 Fonction OUI.
 
-\begin{minipage}[c]{.3\linewidth}
 \begin{center}
-\includegraphics[width=.9\textwidth]{png/oui_logi}
-
-\textit{Fonction OUI -- Table de vérité et logigramme}
+\includegraphics[width=.9\textwidth]{images/oui}
 \end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/oui_elec}
-
-\textit{Fonction OUI en technologie électrique}
-\end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/oui_pneu}
-
-\textit{Fonction OUI en technologie pneumatique}
-\end{center}
-\end{minipage}
 \end{exemple}
 
 
@@ -421,27 +405,11 @@ $a$ & $\overline{a}$ \\
 \begin{exemple}
 Fonction NON.
 
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/non_logi}
 
-\textit{Fonction NON -- Table de vérité et logigramme}
-\end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
 \begin{center}
-\includegraphics[width=.9\textwidth]{png/non_elec}
-
-\textit{Fonction NON en technologie électrique}
+\includegraphics[width=.9\textwidth]{images/NON}
 \end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/non_pneu}
 
-\textit{Fonction NON en technologie pneumatique}
-\end{center}
-\end{minipage}
 \end{exemple}
 
 
@@ -473,29 +441,11 @@ $a$ & $b$ & $a\cdot b$ \\
 \end{defi}
 
 \begin{exemple}
-Fonction ET.
 
-\begin{minipage}[c]{.3\linewidth}
 \begin{center}
-\includegraphics[width=.9\textwidth]{png/et_logi}
-
-\textit{Fonction ET -- Table de vérité et logigramme}
+\includegraphics[width=.9\textwidth]{images/ET}
 \end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/et_elec}
 
-\textit{Fonction ET en technologie électrique}
-\end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/et_pneu}
-
-\textit{Fonction ET en technologie pneumatique}
-\end{center}
-\end{minipage}
 \end{exemple}
 
 
@@ -530,27 +480,10 @@ $a$ & $b$ & $a+ b$ \\
 \begin{exemple}
 Fonction OU.
 
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/ou_logi}
 
-\textit{Fonction OU -- Table de vérité et logigramme}
-\end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
 \begin{center}
-\includegraphics[width=.9\textwidth]{png/ou_elec}
-
-\textit{Fonction OU en technologie électrique}
+\includegraphics[width=.9\textwidth]{images/OU}
 \end{center}
-\end{minipage} \hfill
-\begin{minipage}[c]{.3\linewidth}
-\begin{center}
-\includegraphics[width=.9\textwidth]{png/ou_pneu}
-
-\textit{Fonction OU en technologie pneumatique}
-\end{center}
-\end{minipage}
 \end{exemple}
 
 \subsubsection{Propriétés des opérateurs de base de l'algèbre de Boole}
@@ -676,7 +609,27 @@ Un système combinatoire est décrit par une fonction logique qui permet de déf
 La table de vérité d'une fonction logique est une écriture systématique qui consiste à décrire toutes les combinaison des variables et à y associer les valeurs correspondantes de la fonction. 
 
 \begin{exemple}
-La table de vérité pour les lampes $L_1$, $L_2$, $L_3$, $L_4$ de l'éclairage d'escalier est la suivante :
+
+
+Compléter la table de vérité suivante et vérifier les théorèmes de De Morgan pour deux variables.
+\begin{center}
+\begin{tabular}[c]{|c|c||c|c|c|c|}
+\hline
+$a$ & $b$ & $\overline{a\cdot b}$ & $\overline{a} + \overline{b}$ & $\overline{a+b}$ & $\overline{a}\cdot\overline{b}$ \\
+\hline \hline 
+0 & 0 & & & & \\ \hline
+0 & 1 & & & & \\ \hline
+1 & 1 & & & & \\ \hline
+1 & 1 & & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\end{exemple}
+
+\begin{exemple}
+Soit 4 lampes $L_1$, $L_2$, $L_3$, $L_4$ permettant d'éclairer un escalier. L'allumage de ces 3 lampes est régit par 3 détecteurs de présences $a$, $b$ et $c$. La table de vérité est la suivante :
+
+\begin{minipage}[c]{.4\linewidth}
 \begin{center}
 \begin{tabular}[c]{|c|c|c||c|c|c|c|}
 \hline 
@@ -692,20 +645,14 @@ $a$ & $b$ & $c$ & $L_1$ & $L_2$ & $L_3$ & $L_4$ \\
 1 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline 
 \end{tabular}
 \end{center}
-
-Compléter la table de vérité suivante et vérifier les théorèmes de De Morgan pour deux variables.
+\end{minipage}
+\begin{minipage}[c]{.55\linewidth}
 \begin{center}
-\begin{tabular}[c]{|c|c||c|c|c|c|}
-\hline
-$a$ & $b$ & $\overline{a\cdot b}$ & $\overline{a} + \overline{b}$ & $\overline{a+b}$ & $\overline{a}\cdot\overline{b}$ \\
-\hline \hline 
-0 & 0 & & & & \\ \hline
-0 & 1 & & & & \\ \hline
-1 & 1 & & & & \\ \hline
-1 & 1 & & & & \\ \hline
-\end{tabular}
+\includegraphics[width=\textwidth]{images/fig_06}
 \end{center}
+\end{minipage}
 
+Donner l'expression de $L_1$, $L_2$, $L_3$, $L_4$.
 \end{exemple}
 
 Il est possible à l'aide de la table de vérité de définir une équation donnant les variables de sortie en fonction des variables d'entrée. Il existe 2 modes d'écriture particuliers : 
@@ -795,27 +742,35 @@ Dans un système combinatoire :
 
 Une fois l'expression logique obtenue et simplifiée, il est possible d'exprimer graphiquement le comportement du système combinatoire. On utilise pour cela en général le logigramme ou le schéma électrique. On peut également utiliser un schéma pneumatique ou électronique.
 
-\subsection{Logigramme}
 
 %Un logigramme est une représentation logique 
 
 
 \begin{center}
-\includegraphics[width=.6\textwidth]{png/fig_17}
-\end{center}
-
-\begin{center}
-\includegraphics[height=\textheight]{png/fig_18}
+\includegraphics[width=.6\textwidth]{images/fig_17}
 \end{center}
 
 
+\subsection{Logigrammes pour un codeur incrémental}
+\begin{exemple}
+\begin{enumerate}
+\item Réaliser le logigramme illustrant le comptage et le décomptage des impulsions provenant d'un codeur incrémental.
+\item Réaliser le logigramme illustrant le comptage et le décomptage des impulsions provenant d'un codeur incrémental en multipliant par 4 sa résolution.
+\end{enumerate}
 
+\begin{rem}
+On appelera front montant de $a$ et notera $\uparrow a$  le passage de la variable $a$ de l'état 0 à l'état 1.
+\end{rem}
+
+\end{exemple}
 
 \begin{thebibliography}{2}
-\bibitem{dv}{Supports de cours de David Violeau, Lycée Saint-Louis, Paris}
-\bibitem{fm}{Supports de cours de Florestan Mathurin, Lycée Bellevue, Toulouse}
+\bibitem{dv}{Supports de cours de David Violeau, Lycée Saint-Louis, Paris.}
+\bibitem{fm}{Supports de cours de Florestan Mathurin, Lycée Bellevue, Toulouse.}
 %\bibitem{jpp}{Supports de cours de Jean-Pierre Pupier, Lycée Rouvière, Toulon}
 
 \end{thebibliography}
 
-\end{document}
+\end{document}\end{document}
+
+
